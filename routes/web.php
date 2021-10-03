@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SlotInformationController;
+use App\Http\Controllers\SlotGameDataController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,4 +15,10 @@ use App\Http\Controllers\SlotInformationController;
 |
 */
 
-Route::get('/', [SlotInformationController::class, 'index']);
+Route::get('/', [SlotInformationController::class, 'index'])
+    ->name('index');
+
+Route::get('/slot/{id}', [SlotGameDataController::class, 'show'])
+    ->name('slot.show');
+
+

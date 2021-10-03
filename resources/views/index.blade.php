@@ -11,7 +11,7 @@
 
     <ul>
     @foreach ($slotInfos as $slotInfo)
-        <li><a href="">{{$slotInfo->slot_name}}</a></li>
+        <li><a href="{{ route('slot.show',$slotInfo->id) }}">{{$slotInfo->slot_name}}</a></li>
     @endforeach
     </ul>
 

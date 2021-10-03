@@ -11,6 +11,6 @@ class SlotGameData extends Model
 
     public function SlotInformation()
     {
-        return $this->belongsTo(SlotInformation::class);
+        return $this->belongsTo(SlotInformation::class, 'slot_id');
     }
 }

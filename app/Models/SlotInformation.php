@@ -11,6 +11,6 @@ class SlotInformation extends Model
 
     public function slotGameDatas()
     {
-        return $this->hasMany(SlotGameData::class);
+        return $this->hasMany(SlotGameData::class,'slot_id');
     }
 }
