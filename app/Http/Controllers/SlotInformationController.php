@@ -12,4 +12,5 @@ class SlotInformationController extends Controller
         $slotInfos = SlotInformation::all();
         return view ('index', ['slotInfos' => $slotInfos]);
     }
+
 }
