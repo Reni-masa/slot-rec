@@ -1,19 +1,27 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>SLOT-REC</title>
-</head>
-<body>
-    <h1>スロレク</h1>
 
-    <ul>
-    @foreach ($slotInfos as $slotInfo)
-        <li><a href="{{ route('slot.show',$slotInfo->id) }}">{{$slotInfo->slot_name}}</a></li>
-    @endforeach
-    </ul>
+<x-layout>
+    {{-- タイトル --}}
+    <x-slot name="title">機種一覧</x-slot>
 
-</body>
-</html>
+    {{-- css --}}
+    <x-slot name="style">
+        <style>
+            a {
+                text-decoration: none;
+            }
+        </style>
+    </x-slot>
+
+    {{-- メインコンテンツ --}}
+    <x-slot name="content">
+        <div>
+            <ul>
+                @foreach ($slotInfos as $slotInfo)
+                    <li class="slot_list"><a href="{{ route('slot.show',$slotInfo->id) }}">{{$slotInfo->slot_name}}</a></li>
+                @endforeach
+            </ul>
+        </div>
+    </x-slot>
+
+</x-layout>
+
