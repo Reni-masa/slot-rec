@@ -6,7 +6,7 @@ use App\Models\SlotInformation;
 
 class SlotGameDataController extends Controller
 {
-    const GET_DATA_PERIOD = -2;
+    const GET_DATA_PERIOD = -2; // 取得期間(月)定義
 
     // 機種データ一覧
     public function show($id) {
@@ -14,11 +14,22 @@ class SlotGameDataController extends Controller
 
         $start_day = date("Y-m-d",strtotime(self::GET_DATA_PERIOD . " month"));
 
-        $slotDatas = $slotInfo->slotGameDatas()->where('date_time', '>=', $start_day)->get();
+        // データ一覧取得
+        $slotDatas = $slotInfo->slotGameDatas()->where('date_time', '>=', $start_day)->orderBy('number')->get();
 
-        foreach ($slotDatas as $slotData) {
-            print($slotData);
-        }
+        // 日付一覧を取得
+        $dates = $slotInfo->slotGameDatas()->distinct()->select('date_time')->where('date_time', '>=', $start_day)->orderBy('date_time','desc')->get();
+
+        // 台番号一覧取得
+        $numbers = $slotInfo->slotGameDatas()->distinct()->select('number')->where('date_time', '>=', $start_day)->get();
+
+        return view ('show', [
+            'slotInfo' => $slotInfo,
+            'slotDatas' => $slotDatas,
+            'dates' => $dates,
+            'numbers' => $numbers,
+            ]
+        );
 
         return;
     }
