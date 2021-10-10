@@ -12,7 +12,7 @@
             .predict_class {
                 text-align: center;;
             }
-            .predict_class6 a{
+            .predict_class6 .slot_detail_link{
                 background-color: rgba(255, 51, 51, .8);
                 color:white;
                 font-weight: bold;
@@ -21,6 +21,8 @@
                 display: block;
                 text-decoration: none;
                 transition:0.８s;
+                color:gray;
+                font-weight: bold;
             }
             .slot_detail_link:hover {
                 color: #5fb2f9;
@@ -82,7 +84,9 @@
                     @foreach ($dates as $date)
                         <?php $slotData = $slotDatas->where('number',$number->number)->where('date_time',$date->date_time)->first(); ?>
                         <td colspan="2" class="predict_class predict_class{{$slotData['class']}}">
-                            <a class="slot_detail_link" href="">{{$slotData['class']}}</a>
+                            <a class="slot_detail_link" href="@if($slotData["id"]){{ route("slot.detail",$slotData["id"]) }}@endif">
+                                {{$slotData['class']}}
+                            </a>
                         </td>
                     @endforeach
                 </tr>

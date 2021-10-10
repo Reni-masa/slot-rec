@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\SlotInformation;
+use App\Models\SlotGameData;
 
 class SlotGameDataController extends Controller
 {
@@ -28,8 +29,21 @@ class SlotGameDataController extends Controller
             'slotDatas' => $slotDatas,
             'dates' => $dates,
             'numbers' => $numbers,
-            ]
-        );
+        ]);
+
+        return;
+    }
+
+    // 機種データ詳細取得
+    public function detail($id) {
+
+        $slotData = SlotGameData::findOrFail($id);
+        $slotInfo = $slotData->SlotInformation;
+
+        return view('detail', [
+            'slotData' => $slotData,
+            'slotInfo' => $slotInfo,
+        ]);
 
         return;
     }

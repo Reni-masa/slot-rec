@@ -19,6 +19,10 @@ Route::get('/', [SlotInformationController::class, 'index'])
     ->name('index');
 
 Route::get('/slot/{id}', [SlotGameDataController::class, 'show'])
-    ->name('slot.show');
+    ->name('slot.show')->where('id', '[0-9]+');
+
+Route::get('/slot/detail/{id}', [SlotGameDataController::class, 'detail'])
+    ->name('slot.detail');
+
 
 
