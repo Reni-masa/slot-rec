@@ -6,8 +6,13 @@
     {{-- css --}}
     <x-slot name="style">
         <style>
+            .table-wrap {
+                overflow-x: scroll;
+            }
             table {
                 font-size:10px;
+                white-space: nowrap;
+                border-collapse: collapse;
             }
             .predict_class {
                 text-align: center;;
@@ -50,50 +55,53 @@
 
     {{-- メインコンテンツ --}}
     <x-slot name="content">
-        <table border="1" style="border-collapse: collapse;display: flex;">
-            <tr>
-                <td>&emsp;&emsp;&emsp;</td>
-                @foreach ($dates as $date)
-                    <td colspan="2">{{$date->date_time}}</td>
+        <div class="table-wrap">
+
+            <table border="1">
+                <tr>
+                    <td>&emsp;&emsp;&emsp;</td>
+                    @foreach ($dates as $date)
+                        <td colspan="2">{{$date->date_time}}</td>
+                    @endforeach
+                </tr>
+
+
+                @foreach ($numbers as $number)
+                    <tr>
+                        <td rowspan="4">{{$number->number}}</td>
+                        @foreach ($dates as $date)
+                            <?php $slotData = $slotDatas->where('number',$number->number)->where('date_time',$date->date_time)->first(); ?>
+                            <td>BB: {{$slotData['BB']}}</td>
+                            <td>RB: {{$slotData['RB']}}</td>
+                        @endforeach
+                    </tr>
+                    <tr>
+                        @foreach ($dates as $date)
+                            <?php $slotData = $slotDatas->where('number',$number->number)->where('date_time',$date->date_time)->first(); ?>
+                            <td>総回転数: {{$slotData['total_game']}}</td>
+                            <td>合算 {{$slotData['bonus_average']}}</td>
+                        @endforeach
+                    </tr>
+                    <tr>
+                        @foreach ($dates as $date)
+                            <td colspan="2" class="predict_class">設定</td>
+                        @endforeach
+                    </tr>
+                    <tr>
+                        @foreach ($dates as $date)
+                            <?php $slotData = $slotDatas->where('number',$number->number)->where('date_time',$date->date_time)->first(); ?>
+                            <td colspan="2" class="predict_class predict_class{{$slotData['class']}}">
+                                <a class="slot_detail_link" href="@if($slotData["id"]){{ route("slot.detail",$slotData["id"]) }}@endif">
+                                    {{$slotData['class']}}
+                                </a>
+                            </td>
+                        @endforeach
+                    </tr>
+
                 @endforeach
-            </tr>
 
-
-            @foreach ($numbers as $number)
-                <tr>
-                    <td rowspan="4">{{$number->number}}</td>
-                    @foreach ($dates as $date)
-                        <?php $slotData = $slotDatas->where('number',$number->number)->where('date_time',$date->date_time)->first(); ?>
-                        <td>BB: {{$slotData['BB']}}</td>
-                        <td>RB: {{$slotData['RB']}}</td>
-                    @endforeach
-                </tr>
-                <tr>
-                    @foreach ($dates as $date)
-                        <?php $slotData = $slotDatas->where('number',$number->number)->where('date_time',$date->date_time)->first(); ?>
-                        <td>総回転数: {{$slotData['total_game']}}</td>
-                        <td>合算 {{$slotData['bonus_average']}}</td>
-                    @endforeach
-                </tr>
-                <tr>
-                    @foreach ($dates as $date)
-                        <td colspan="2" class="predict_class">設定</td>
-                    @endforeach
-                </tr>
-                <tr>
-                    @foreach ($dates as $date)
-                        <?php $slotData = $slotDatas->where('number',$number->number)->where('date_time',$date->date_time)->first(); ?>
-                        <td colspan="2" class="predict_class predict_class{{$slotData['class']}}">
-                            <a class="slot_detail_link" href="@if($slotData["id"]){{ route("slot.detail",$slotData["id"]) }}@endif">
-                                {{$slotData['class']}}
-                            </a>
-                        </td>
-                    @endforeach
-                </tr>
-
-            @endforeach
-
-        </table>
+            </table>
+        </div>
 
         <div>
             <a href="{{route("index")}}" id="top_pade_btn"><i class="fas fa-home"></i></a>
