@@ -7,7 +7,7 @@ use App\Models\SlotGameData;
 
 class SlotGameDataController extends Controller
 {
-    const GET_DATA_PERIOD = -2; // 取得期間(月)定義
+    const GET_DATA_PERIOD = -1; // 取得期間(月)定義
 
     // 機種データ一覧
     public function show($id) {
