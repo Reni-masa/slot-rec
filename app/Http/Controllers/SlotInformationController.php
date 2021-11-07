@@ -9,7 +9,7 @@ class SlotInformationController extends Controller
 {
     public function index(Request $request)
     {
-        $slotInfos = SlotInformation::all();
+        $slotInfos = SlotInformation::where('enable', 1);
         return view ('index', ['slotInfos' => $slotInfos]);
     }
 }
