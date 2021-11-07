@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\SlotInformation;
 use App\Models\SlotGameData;
-
+set_time_limit(60);
 class SlotGameDataController extends Controller
 {
     const GET_DATA_PERIOD = -1; // 取得期間(月)定義
